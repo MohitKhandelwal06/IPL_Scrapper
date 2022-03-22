@@ -14,9 +14,15 @@ function cb(err,res,body){
     }
 }
 
-function extractMatchLink(html){
+function extractAllMatchLink(html){
     let SelecTool=cheerio.load(html);
-    
+    let ScoreCardElemArr=SelecTool('a[data-hover="Scorecard"]');
+    // console.log(ScoreCardElemArr.length);
+    for(let i=0;i<ScoreCardElemArr.length;i++){
+        let ScoreCardLink=SelecTool(ScoreCardElemArr[i]).attr('href');
+        let fullLink="https://www.espncricinfo.com"+ScoreCardLink;
+        console.log(i+1+" "+fullLink);
+    }
 }
 
 module.exports={
