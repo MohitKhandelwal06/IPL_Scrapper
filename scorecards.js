@@ -27,19 +27,47 @@ function getMatchDetails(html){
     console.log(dateOfMatch);
     console.log(venueOfMatch);
     // 3.get team names
-    let teamDetailEle=selecTool('a[class="name-link"]>.name');
+    let teamNames=selecTool('.name-detail>.name-link');
     // console.log(teamDetailEle.length);
-    // console.log(teamDetailEle.text());
-    // let team1=teamDetailEle.text()[0];
-    // let team2=teamDetailEle.text()[1];
-    for(let i=0;i<teamDetailEle.length;i++){
-        console.log(teamDetailEle[i].text());
-    }
+    // console.log(teamNames.text());
+    let team1=selecTool(teamNames[0]).text();
+    let team2=selecTool(teamNames[1]).text();
+   
     console.log(team1);
     console.log(team2);
     // 4.get result
     let matchResEle=selecTool(".match-info.match-info-MATCH.match-info-MATCH-half-width>.status-text");
     console.log(matchResEle.text());
+
+    // 5. get innings
+    let allBatsmenTable=selecTool(".table.batsman tbody");
+    let htmlString="";
+    let count=0;
+    for(let i=0;i<allBatsmenTable.length;i++){
+        htmlString+=selecTool(allBatsmenTable[i]).html();
+        let allRows=selecTool(allBatsmenTable[i]).find('tr');
+        for(let i=0;i<allRows.length;i++){
+            let row=selecTool(allRows[i]);
+            let firstColumnOfRow=row.find('td')[0];
+            
+            if((selecTool(firstColumnOfRow).hasClass('batsman-cell'))){
+                // will be getting valid data
+                // count++;
+                // console.log(count);
+                let playerName=selecTool(row.find('td')[0]).text();
+                let runs=selecTool(row.find('td')[2]).text();
+                let balls=selecTool(row.find('td')[3]).text();
+                let numberOf4s=selecTool(row.find('td')[5]).text();
+                let numberOf6s=selecTool(row.find('td')[6]).text();
+                let sr=selecTool(row.find('td')[7]).text();
+
+                console.log(`${playerName} | ${runs} | ${balls}  | ${numberOf4s} | ${numberOf6s} | ${sr}`);
+            }
+        
+        }
+        
+    }
+    // console.log(allBatsmenRows.text());
 
 }
 
