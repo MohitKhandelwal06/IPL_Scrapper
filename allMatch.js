@@ -23,7 +23,6 @@ function extractAllMatchLink(html){
         let fullLink="https://www.espncricinfo.com"+ScoreCardLink;
         // console.log(i+1+" "+fullLink);
         gifs(fullLink);
-        break;
     }
 }
 
